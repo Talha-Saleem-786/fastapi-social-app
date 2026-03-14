@@ -1,21 +1,18 @@
 from logging.config import fileConfig
-from sqlalchemy import engine_from_config
+from sqlalchemy import create_engine
 from sqlalchemy import pool
 from app.models import Base
 from alembic import context
-from app.config import settings
 import os
 
 config = context.config
 
-# 1. Try MYSQL_URL from Railway first
 DATABASE_URL = os.getenv("MYSQL_URL")
-
 if DATABASE_URL:
     if DATABASE_URL.startswith("mysql://"):
         DATABASE_URL = DATABASE_URL.replace("mysql://", "mysql+mysqlconnector://", 1)
 else:
-    # 2. Fallback to individual variables (local development)
+    from app.config import settings
     port = settings.database_port if settings.database_port else "3306"
     DATABASE_URL = f"mysql+mysqlconnector://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{port}/{settings.database_name}"
 
@@ -25,7 +22,6 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 target_metadata = Base.metadata
-
 
 def run_migrations_offline() -> None:
     url = config.get_main_option("sqlalchemy.url")
@@ -38,20 +34,16 @@ def run_migrations_offline() -> None:
     with context.begin_transaction():
         context.run_migrations()
 
-
 def run_migrations_online() -> None:
-    from sqlalchemy import create_engine
-    
     url = config.get_main_option("sqlalchemy.url")
     connectable = create_engine(url, poolclass=pool.NullPool)
-
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection,
+            target_metadata=target_metadata
         )
         with context.begin_transaction():
             context.run_migrations()
-
 
 if context.is_offline_mode():
     run_migrations_offline()
