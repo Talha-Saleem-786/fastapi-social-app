@@ -5,7 +5,6 @@ from .config import settings
 
 
 DATABASE_URL = f"mysql+mysqlconnector://{settings.database_username}:{settings.database_password}@{settings.database_hostname}/{settings.database_name}"
-#"Database://username:password@hostname/DBcreated"
 
 engine = create_engine(
     DATABASE_URL,
