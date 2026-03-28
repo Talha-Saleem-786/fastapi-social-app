@@ -1,14 +1,33 @@
-from fastapi import FastAPI 
+import os
+from fastapi import FastAPI
 # import mysql.connector
 # from mysql.connector import Error
 from .router import post,user,auth,vote
 from  fastapi.middleware.cors import CORSMiddleware
+import sentry_sdk
+from sentry_sdk.integrations.fastapi import FastApiIntegration
+from sentry_sdk.integrations.starlette import StarletteIntegration
+
+sentry_dsn=os.getenv("SENTRY_DSN")
+sentry_sdk.init(
+    dsn=sentry_dsn,
+    send_default_pii=True,
+    integrations=[
+        FastApiIntegration(),
+        StarletteIntegration(),
+    ],
+    traces_sample_rate=1.0,
+    environment="production",
+    release="1.0.0",
+)
 app = FastAPI()
+
 app.include_router(post.router)
 app.include_router(user.router)
 app.include_router(auth.router)
 app.include_router(vote.router)
 # models.Base.metadata.create_all(bind=engine)
+
 
 app.add_middleware(
     CORSMiddleware,
