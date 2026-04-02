@@ -1,0 +1,312 @@
+2026-04-02 23:41:01.214 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/
+2026-04-02 23:41:01.227 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-02 23:41:01.332 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/favicon.ico
+2026-04-02 23:41:01.336 | INFO     | app.main:log_requests:22 - Response → status=404
+2026-04-02 23:41:07.596 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/docs
+2026-04-02 23:41:07.598 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-02 23:41:07.998 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/openapi.json
+2026-04-02 23:41:08.133 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-02 23:42:00.656 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/users/
+2026-04-02 23:42:00.703 | INFO     | app.router.user:create_user:15 - User Registeration Attempt | email:talha@gmail.com
+2026-04-02 23:42:01.160 | WARNING  | app.router.user:create_user:18 - User talha@gmail.com already exist!
+2026-04-02 23:42:01.162 | ERROR    | app.database:get_db:46 - Database session error
+Traceback (most recent call last):
+
+  File "C:\Python314\Lib\threading.py", line 1043, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000001A4575FAC40>
+    └ <WorkerThread(AnyIO worker thread, started 14252)>
+  File "C:\Python314\Lib\threading.py", line 1081, in _bootstrap_inner
+    self._context.run(self.run)
+    │    │        │   │    └ <function WorkerThread.run at 0x000001A45E05AFB0>
+    │    │        │   └ <WorkerThread(AnyIO worker thread, started 14252)>
+    │    │        └ <method 'run' of '_contextvars.Context' objects>
+    │    └ <_contextvars.Context object at 0x000001A45DE99DC0>
+    └ <WorkerThread(AnyIO worker thread, started 14252)>
+  File "d:\FastApi\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 986, in run
+    result = context.run(func, *args)
+             │       │   │      └ (<class 'fastapi.exceptions.HTTPException'>, HTTPException(status_code=409, detail='Email already registered'), <traceback ob...
+             │       │   └ <bound method _GeneratorContextManager.__exit__ of <contextlib._GeneratorContextManager object at 0x000001A45E0A03D0>>
+             │       └ <method 'run' of '_contextvars.Context' objects>
+             └ <_contextvars.Context object at 0x000001A45E0C6A80>
+  File "C:\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    │    │   │     └ HTTPException(status_code=409, detail='Email already registered')
+    │    │   └ <method 'throw' of 'generator' objects>
+    │    └ <generator object get_db at 0x000001A45E0B2F80>
+    └ <contextlib._GeneratorContextManager object at 0x000001A45E0A03D0>
+
+> File "D:\FastApi\app\database.py", line 44, in get_db
+    yield db
+          └ <sqlalchemy.orm.session.Session object at 0x000001A45E024EC0>
+
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+                │                 │  └ <function _GeneratorContextManager.__enter__ at 0x000001A457A61E80>
+                │                 └ <contextlib._GeneratorContextManager object at 0x000001A45E0A03D0>
+                └ <function run_in_threadpool at 0x000001A45AE68BF0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x000001A45DFE2750>
+                     └ <function get_request_handler.<locals>.app at 0x000001A45DFF1590>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 426, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x000001A45B14D2D0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+                 │                 │         │       └ {'db': <sqlalchemy.orm.session.Session object at 0x000001A45E024EC0>, 'user': UserCreated(email='talha@gmail.com', password='...
+                 │                 │         └ <function create_user at 0x000001A45DF852D0>
+                 │                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+                 └ <function run_in_threadpool at 0x000001A45AE68BF0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+                 │     │         │        └ functools.partial(<function create_user at 0x000001A45DF852D0>, db=<sqlalchemy.orm.session.Session object at 0x000001A45E024E...
+                 │     │         └ <function run_sync at 0x000001A459DCFCC0>
+                 │     └ <module 'anyio.to_thread' from 'd:\\FastApi\\.venv\\Lib\\site-packages\\anyio\\to_thread.py'>
+                 └ <module 'anyio' from 'd:\\FastApi\\.venv\\Lib\\site-packages\\anyio\\__init__.py'>
+  File "d:\FastApi\.venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+                 └ <function get_async_backend at 0x000001A459DCF480>
+  File "d:\FastApi\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2502, in run_sync_in_worker_thread
+    return await future
+                 └ <Future finished exception=HTTPException(status_code=409, detail='Email already registered')>
+  File "d:\FastApi\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 986, in run
+    result = context.run(func, *args)
+             │       │   │      └ (<class 'fastapi.exceptions.HTTPException'>, HTTPException(status_code=409, detail='Email already registered'), <traceback ob...
+             │       │   └ <bound method _GeneratorContextManager.__exit__ of <contextlib._GeneratorContextManager object at 0x000001A45E0A03D0>>
+             │       └ <method 'run' of '_contextvars.Context' objects>
+             └ <_contextvars.Context object at 0x000001A45E0C6A80>
+
+  File "D:\FastApi\app\router\user.py", line 19, in create_user
+    raise HTTPException(status_code=status.HTTP_409_CONFLICT,detail="Email already registered")
+          │                         │      └ 409
+          │                         └ <module 'starlette.status' from 'd:\\FastApi\\.venv\\Lib\\site-packages\\starlette\\status.py'>
+          └ <class 'fastapi.exceptions.HTTPException'>
+
+fastapi.exceptions.HTTPException: 409: Email already registered
+2026-04-02 23:42:01.512 | INFO     | app.main:log_requests:22 - Response → status=409
+2026-04-02 23:42:43.935 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/users/
+2026-04-02 23:42:43.940 | INFO     | app.router.user:create_user:15 - User Registeration Attempt | email:zoha@gmail.com
+2026-04-02 23:42:44.283 | SUCCESS  | app.router.user:create_user:25 - User successfully created | email:zoha@gmail.com with id:3
+2026-04-02 23:42:44.288 | INFO     | app.main:log_requests:22 - Response → status=201
+2026-04-02 23:43:41.280 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/login
+2026-04-02 23:43:41.295 | INFO     | app.router.auth:login:16 - Login attempt | user:zoha@gmail.com
+2026-04-02 23:43:41.517 | SUCCESS  | app.oauth2:create_token:21 - Token created Succesfully for user_id: 3
+2026-04-02 23:43:41.518 | SUCCESS  | app.router.auth:login:27 - Login successful | email=zoha@gmail.com user_id=3
+2026-04-02 23:43:41.521 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-02 23:44:19.851 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/?limit=10&skip=0
+2026-04-02 23:44:19.870 | INFO     | app.oauth2:verify_access_token:25 - Verifying access token...
+2026-04-02 23:44:19.871 | SUCCESS  | app.oauth2:verify_access_token:33 - Token verified successfully for user_id: 3
+2026-04-02 23:44:19.890 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 3
+2026-04-02 23:44:19.892 | INFO     | app.router.post:get_posts:24 - User 3 fetching posts | limit=10 skip=0 search=
+2026-04-02 23:44:19.979 | SUCCESS  | app.router.post:get_posts:31 - Posts fetched successfully | count=3
+2026-04-02 23:44:19.994 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-02 23:45:30.981 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/posts/
+2026-04-02 23:45:30.986 | INFO     | app.oauth2:verify_access_token:25 - Verifying access token...
+2026-04-02 23:45:30.987 | SUCCESS  | app.oauth2:verify_access_token:33 - Token verified successfully for user_id: 3
+2026-04-02 23:45:31.000 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 3
+2026-04-02 23:45:31.003 | INFO     | app.router.post:create_post:81 - User 3 created a post
+2026-04-02 23:45:31.043 | SUCCESS  | app.router.post:create_post:87 - User 3 successfully created a post 5
+2026-04-02 23:45:31.048 | INFO     | app.main:log_requests:22 - Response → status=201
+2026-04-02 23:46:18.700 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/users/1
+2026-04-02 23:46:18.718 | INFO     | app.router.user:get_user:35 - Fetching User | id:1
+2026-04-02 23:46:18.732 | SUCCESS  | app.router.user:get_user:41 - User succesfully Fetched | user:1
+2026-04-02 23:46:18.736 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-02 23:46:43.129 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/2
+2026-04-02 23:46:43.134 | INFO     | app.oauth2:verify_access_token:25 - Verifying access token...
+2026-04-02 23:46:43.135 | SUCCESS  | app.oauth2:verify_access_token:33 - Token verified successfully for user_id: 3
+2026-04-02 23:46:43.143 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 3
+2026-04-02 23:46:43.146 | INFO     | app.router.post:individual_post:47 - User 3 fetching post id:2
+2026-04-02 23:46:43.159 | SUCCESS  | app.router.post:individual_post:65 - Post id:2 fetched Successfully
+2026-04-02 23:46:43.169 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-02 23:46:49.389 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/3
+2026-04-02 23:46:49.392 | INFO     | app.oauth2:verify_access_token:25 - Verifying access token...
+2026-04-02 23:46:49.393 | SUCCESS  | app.oauth2:verify_access_token:33 - Token verified successfully for user_id: 3
+2026-04-02 23:46:49.400 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 3
+2026-04-02 23:46:49.403 | INFO     | app.router.post:individual_post:47 - User 3 fetching post id:3
+2026-04-02 23:46:49.410 | SUCCESS  | app.router.post:individual_post:65 - Post id:3 fetched Successfully
+2026-04-02 23:46:49.421 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-02 23:47:01.493 | INFO     | app.main:log_requests:16 - Request --> DELETE http://127.0.0.1:8000/posts/3
+2026-04-02 23:47:01.498 | INFO     | app.oauth2:verify_access_token:25 - Verifying access token...
+2026-04-02 23:47:01.499 | SUCCESS  | app.oauth2:verify_access_token:33 - Token verified successfully for user_id: 3
+2026-04-02 23:47:01.510 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 3
+2026-04-02 23:47:01.513 | INFO     | app.router.post:delete_post:113 - User 3 deleting post id=3
+2026-04-02 23:47:01.522 | WARNING  | app.router.post:delete_post:121 - Unauthorized delete | user=3 post owner=1
+2026-04-02 23:47:01.524 | ERROR    | app.database:get_db:46 - Database session error
+Traceback (most recent call last):
+
+  File "C:\Python314\Lib\threading.py", line 1043, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000001A4575FAC40>
+    └ <WorkerThread(AnyIO worker thread, started 14252)>
+  File "C:\Python314\Lib\threading.py", line 1081, in _bootstrap_inner
+    self._context.run(self.run)
+    │    │        │   │    └ <function WorkerThread.run at 0x000001A45E05AFB0>
+    │    │        │   └ <WorkerThread(AnyIO worker thread, started 14252)>
+    │    │        └ <method 'run' of '_contextvars.Context' objects>
+    │    └ <_contextvars.Context object at 0x000001A45DE99DC0>
+    └ <WorkerThread(AnyIO worker thread, started 14252)>
+  File "d:\FastApi\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 986, in run
+    result = context.run(func, *args)
+             │       │   │      └ (<class 'fastapi.exceptions.HTTPException'>, HTTPException(status_code=403, detail="Cannot delete other user's post"), <trace...
+             │       │   └ <bound method _GeneratorContextManager.__exit__ of <contextlib._GeneratorContextManager object at 0x000001A45E6A94E0>>
+             │       └ <method 'run' of '_contextvars.Context' objects>
+             └ <_contextvars.Context object at 0x000001A45DD2A4C0>
+  File "C:\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    │    │   │     └ HTTPException(status_code=403, detail="Cannot delete other user's post")
+    │    │   └ <method 'throw' of 'generator' objects>
+    │    └ <generator object get_db at 0x000001A45E68DEE0>
+    └ <contextlib._GeneratorContextManager object at 0x000001A45E6A94E0>
+
+> File "D:\FastApi\app\database.py", line 44, in get_db
+    yield db
+          └ <sqlalchemy.orm.session.Session object at 0x000001A45E6AC650>
+
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+                │                 │  └ <function _GeneratorContextManager.__enter__ at 0x000001A457A61E80>
+                │                 └ <contextlib._GeneratorContextManager object at 0x000001A45E6A94E0>
+                └ <function run_in_threadpool at 0x000001A45AE68BF0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x000001A45E67F490>
+                     └ <function get_request_handler.<locals>.app at 0x000001A45DFF0D50>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 426, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x000001A45B14D2D0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+                 │                 │         │       └ {'db': <sqlalchemy.orm.session.Session object at 0x000001A45E6AC650>, 'current_user': <app.models.User object at 0x000001A45E...
+                 │                 │         └ <function delete_post at 0x000001A45DE9D430>
+                 │                 └ Dependant(path_params=[ModelField(field_info=Path(PydanticUndefined), name='id', mode='validation', config=None)], query_para...
+                 └ <function run_in_threadpool at 0x000001A45AE68BF0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+                 │     │         │        └ functools.partial(<function delete_post at 0x000001A45DE9D430>, db=<sqlalchemy.orm.session.Session object at 0x000001A45E6AC6...
+                 │     │         └ <function run_sync at 0x000001A459DCFCC0>
+                 │     └ <module 'anyio.to_thread' from 'd:\\FastApi\\.venv\\Lib\\site-packages\\anyio\\to_thread.py'>
+                 └ <module 'anyio' from 'd:\\FastApi\\.venv\\Lib\\site-packages\\anyio\\__init__.py'>
+  File "d:\FastApi\.venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+                 └ <function get_async_backend at 0x000001A459DCF480>
+  File "d:\FastApi\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2502, in run_sync_in_worker_thread
+    return await future
+                 └ <Future finished exception=HTTPException(status_code=403, detail="Cannot delete other user's post")>
+  File "d:\FastApi\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 986, in run
+    result = context.run(func, *args)
+             │       │   │      └ (<class 'fastapi.exceptions.HTTPException'>, HTTPException(status_code=403, detail="Cannot delete other user's post"), <trace...
+             │       │   └ <bound method _GeneratorContextManager.__exit__ of <contextlib._GeneratorContextManager object at 0x000001A45E6A94E0>>
+             │       └ <method 'run' of '_contextvars.Context' objects>
+             └ <_contextvars.Context object at 0x000001A45DD2A4C0>
+
+  File "D:\FastApi\app\router\post.py", line 122, in delete_post
+    raise HTTPException(
+          └ <class 'fastapi.exceptions.HTTPException'>
+
+fastapi.exceptions.HTTPException: 403: Cannot delete other user's post
+2026-04-02 23:47:01.540 | INFO     | app.main:log_requests:22 - Response → status=403
+2026-04-02 23:47:09.448 | INFO     | app.main:log_requests:16 - Request --> DELETE http://127.0.0.1:8000/posts/4
+2026-04-02 23:47:09.451 | INFO     | app.oauth2:verify_access_token:25 - Verifying access token...
+2026-04-02 23:47:09.452 | SUCCESS  | app.oauth2:verify_access_token:33 - Token verified successfully for user_id: 3
+2026-04-02 23:47:09.459 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 3
+2026-04-02 23:47:09.464 | INFO     | app.router.post:delete_post:113 - User 3 deleting post id=4
+2026-04-02 23:47:09.471 | WARNING  | app.router.post:delete_post:117 - Delete failed | post id=4 not found
+2026-04-02 23:47:09.473 | ERROR    | app.database:get_db:46 - Database session error
+Traceback (most recent call last):
+
+  File "C:\Python314\Lib\threading.py", line 1043, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000001A4575FAC40>
+    └ <WorkerThread(AnyIO worker thread, started 14252)>
+  File "C:\Python314\Lib\threading.py", line 1081, in _bootstrap_inner
+    self._context.run(self.run)
+    │    │        │   │    └ <function WorkerThread.run at 0x000001A45E05AFB0>
+    │    │        │   └ <WorkerThread(AnyIO worker thread, started 14252)>
+    │    │        └ <method 'run' of '_contextvars.Context' objects>
+    │    └ <_contextvars.Context object at 0x000001A45DE99DC0>
+    └ <WorkerThread(AnyIO worker thread, started 14252)>
+  File "d:\FastApi\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 986, in run
+    result = context.run(func, *args)
+             │       │   │      └ (<class 'fastapi.exceptions.HTTPException'>, HTTPException(status_code=404, detail='Post with id:4 does not exist'), <traceba...
+             │       │   └ <bound method _GeneratorContextManager.__exit__ of <contextlib._GeneratorContextManager object at 0x000001A45E6A9D30>>
+             │       └ <method 'run' of '_contextvars.Context' objects>
+             └ <_contextvars.Context object at 0x000001A45E08DBC0>
+  File "C:\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    │    │   │     └ HTTPException(status_code=404, detail='Post with id:4 does not exist')
+    │    │   └ <method 'throw' of 'generator' objects>
+    │    └ <generator object get_db at 0x000001A45E6B2340>
+    └ <contextlib._GeneratorContextManager object at 0x000001A45E6A9D30>
+
+> File "D:\FastApi\app\database.py", line 44, in get_db
+    yield db
+          └ <sqlalchemy.orm.session.Session object at 0x000001A45E6ACE50>
+
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+                │                 │  └ <function _GeneratorContextManager.__enter__ at 0x000001A457A61E80>
+                │                 └ <contextlib._GeneratorContextManager object at 0x000001A45E6A9D30>
+                └ <function run_in_threadpool at 0x000001A45AE68BF0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x000001A45E6B5700>
+                     └ <function get_request_handler.<locals>.app at 0x000001A45DFF0D50>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 426, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x000001A45B14D2D0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+                 │                 │         │       └ {'db': <sqlalchemy.orm.session.Session object at 0x000001A45E6ACE50>, 'current_user': <app.models.User object at 0x000001A45E...
+                 │                 │         └ <function delete_post at 0x000001A45DE9D430>
+                 │                 └ Dependant(path_params=[ModelField(field_info=Path(PydanticUndefined), name='id', mode='validation', config=None)], query_para...
+                 └ <function run_in_threadpool at 0x000001A45AE68BF0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+                 │     │         │        └ functools.partial(<function delete_post at 0x000001A45DE9D430>, db=<sqlalchemy.orm.session.Session object at 0x000001A45E6ACE...
+                 │     │         └ <function run_sync at 0x000001A459DCFCC0>
+                 │     └ <module 'anyio.to_thread' from 'd:\\FastApi\\.venv\\Lib\\site-packages\\anyio\\to_thread.py'>
+                 └ <module 'anyio' from 'd:\\FastApi\\.venv\\Lib\\site-packages\\anyio\\__init__.py'>
+  File "d:\FastApi\.venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+                 └ <function get_async_backend at 0x000001A459DCF480>
+  File "d:\FastApi\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2502, in run_sync_in_worker_thread
+    return await future
+                 └ <Future finished exception=HTTPException(status_code=404, detail='Post with id:4 does not exist')>
+  File "d:\FastApi\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 986, in run
+    result = context.run(func, *args)
+             │       │   │      └ (<class 'fastapi.exceptions.HTTPException'>, HTTPException(status_code=404, detail='Post with id:4 does not exist'), <traceba...
+             │       │   └ <bound method _GeneratorContextManager.__exit__ of <contextlib._GeneratorContextManager object at 0x000001A45E6A9D30>>
+             │       └ <method 'run' of '_contextvars.Context' objects>
+             └ <_contextvars.Context object at 0x000001A45E08DBC0>
+
+  File "D:\FastApi\app\router\post.py", line 118, in delete_post
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"Post with id:{id} does not exist")
+          │                         │      │                                         └ 4
+          │                         │      └ 404
+          │                         └ <module 'starlette.status' from 'd:\\FastApi\\.venv\\Lib\\site-packages\\starlette\\status.py'>
+          └ <class 'fastapi.exceptions.HTTPException'>
+
+fastapi.exceptions.HTTPException: 404: Post with id:4 does not exist
+2026-04-02 23:47:09.495 | INFO     | app.main:log_requests:22 - Response → status=404
+2026-04-02 23:47:49.043 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/posts/
+2026-04-02 23:47:49.046 | INFO     | app.oauth2:verify_access_token:25 - Verifying access token...
+2026-04-02 23:47:49.047 | SUCCESS  | app.oauth2:verify_access_token:33 - Token verified successfully for user_id: 3
+2026-04-02 23:47:49.080 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 3
+2026-04-02 23:47:49.083 | INFO     | app.router.post:create_post:81 - User 3 created a post
+2026-04-02 23:47:49.115 | SUCCESS  | app.router.post:create_post:87 - User 3 successfully created a post 6
+2026-04-02 23:47:49.119 | INFO     | app.main:log_requests:22 - Response → status=201
+2026-04-02 23:48:01.372 | INFO     | app.main:log_requests:16 - Request --> DELETE http://127.0.0.1:8000/posts/6
+2026-04-02 23:48:01.375 | INFO     | app.oauth2:verify_access_token:25 - Verifying access token...
+2026-04-02 23:48:01.376 | SUCCESS  | app.oauth2:verify_access_token:33 - Token verified successfully for user_id: 3
+2026-04-02 23:48:01.382 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 3
+2026-04-02 23:48:01.385 | INFO     | app.router.post:delete_post:113 - User 3 deleting post id=6
+2026-04-02 23:48:01.433 | SUCCESS  | app.router.post:delete_post:129 - Post id=6 deleted by user=3
+2026-04-02 23:48:01.435 | INFO     | app.main:log_requests:22 - Response → status=204
+2026-04-02 23:48:41.496 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/vote/
+2026-04-02 23:48:41.515 | INFO     | app.oauth2:verify_access_token:25 - Verifying access token...
+2026-04-02 23:48:41.516 | SUCCESS  | app.oauth2:verify_access_token:33 - Token verified successfully for user_id: 3
+2026-04-02 23:48:41.529 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 3
+2026-04-02 23:48:41.532 | INFO     | app.router.vote:create_vote:18 - User Voting attempt | user:3
+2026-04-02 23:48:41.571 | SUCCESS  | app.router.vote:create_vote:53 - Vote added | user:3
+2026-04-02 23:48:41.573 | INFO     | app.main:log_requests:22 - Response → status=201

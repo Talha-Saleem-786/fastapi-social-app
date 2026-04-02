@@ -1,26 +1,26 @@
-import os
-from fastapi import FastAPI
+from loguru import logger
+from fastapi import FastAPI, Request
 # import mysql.connector
 # from mysql.connector import Error
 from .router import post,user,auth,vote
 from  fastapi.middleware.cors import CORSMiddleware
-import sentry_sdk
-from sentry_sdk.integrations.fastapi import FastApiIntegration
-from sentry_sdk.integrations.starlette import StarletteIntegration
+from .Core.logging import setup_logger
+from .Core.sentry import setup_sentry
 
-sentry_dsn=os.getenv("SENTRY_DSN")
-sentry_sdk.init(
-    dsn=sentry_dsn,
-    send_default_pii=True,
-    integrations=[
-        FastApiIntegration(),
-        StarletteIntegration(),
-    ],
-    traces_sample_rate=1.0,
-    environment="production",
-    release="1.0.0",
-)
+setup_logger()
+setup_sentry()
+
 app = FastAPI()
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    logger.info(f"Request --> {request.method} {request.url}")
+    try:
+        response = await call_next(request)
+    except Exception as e:
+        logger.exception("Error during request processing")
+        raise
+    logger.info(f"Response → status={response.status_code}")
+    return response
 
 app.include_router(post.router)
 app.include_router(user.router)
