@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from .config import settings
 import os
 from loguru import logger
+import sentry_sdk
 # 1. Try to get the full URL first (Railway's default)
 DATABASE_URL = os.getenv("MYSQL_URL")
 
@@ -18,15 +19,17 @@ else:
     port = settings.database_port if settings.database_port else "3306"
     SQLALCHEMY_DATABASE_URL = f"mysql+mysqlconnector://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{port}/{settings.database_name}"
     logger.info("Using local database configuration")
-# 3. Create the engine]
+
 try:
   engine = create_engine(
       SQLALCHEMY_DATABASE_URL,
       echo=True,
       pool_pre_ping=True
   )
-except Exception:
+  logger.success("Database engine created successfully")
+except Exception as e:
     logger.critical("Database connection failed")
+    sentry_sdk.capture_exception(e)
     raise
 
 SessionLocal = sessionmaker(
@@ -43,7 +46,8 @@ def get_db():
         logger.debug("DB session started")
         yield db
     except Exception as e:
-        logger.exception("Database session error")
+        logger.error(f"Database session error | error={e}")
+        sentry_sdk.capture_exception(e)
         raise
     finally:
         db.close()

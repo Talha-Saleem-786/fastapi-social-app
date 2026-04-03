@@ -1,12 +1,13 @@
-from fastapi import HTTPException, status, Response, Depends, APIRouter
+from fastapi import HTTPException, status, Response,APIRouter,Query,Path
 import sentry_sdk
-from app import oauth2
 from .. import models, schemas
-from sqlalchemy.orm import Session
-from .. database import get_db
-from typing import List,Optional
+from typing import List,Optional,Annotated
 from sqlalchemy import func
 from loguru import logger
+from ..dependencies import DB
+from app.oauth2 import get_current_user
+from fastapi import Depends
+
 router =APIRouter(
     prefix="/posts",
     tags=["posts"]
@@ -20,7 +21,7 @@ router =APIRouter(
 #     return results
 
 @router.get("/", response_model=List[schemas.PostOut])
-def get_posts(db: Session = Depends(get_db),current_user: int = Depends(oauth2.get_current_user),limit:int=10, skip:int=0,search:Optional[str]=""):
+def get_posts(db:DB,current_user :Annotated[int, Depends(get_current_user)],limit:Annotated[int,Query(ge=0,le=100)]=10, skip:Annotated[int, Query(ge=0)]=0,search:Annotated[Optional[str],Query(max_length=50)]=""):
     logger.info(f"User {current_user.id} fetching posts | limit={limit} skip={skip} search={search}")
     posts = (db.query(models.Post,func.count(models.Votes.post_id).label("votes"))
         .join(models.Votes,models.Post.id == models.Votes.post_id,isouter=True)
@@ -43,7 +44,7 @@ def get_posts(db: Session = Depends(get_db),current_user: int = Depends(oauth2.g
     # return {"data": posts}
     
 @router.get("/{id}", response_model=schemas.PostOut)
-def individual_post(id: int, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
+def individual_post(id: Annotated[int, Path(gt=0)], db: DB, current_user:Annotated[int, Depends(get_current_user)]):
     logger.info(f"User {current_user.id} fetching post id:{id}")
     post = (
         db.query(
@@ -77,7 +78,7 @@ def individual_post(id: int, db: Session = Depends(get_db), current_user: int = 
    
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.PostResponse)
-def create_post(post: schemas.PostCreate,db: Session= Depends(get_db), current_user: models.User = Depends(oauth2.get_current_user)):
+def create_post(post: schemas.PostCreate,db: DB, current_user= Depends(get_current_user)):
     logger.info(f"User {current_user.id} created a post")
     try:
       new_post= models.Post(**post.model_dump(),user_id=current_user.id)
@@ -105,11 +106,7 @@ def create_post(post: schemas.PostCreate,db: Session= Depends(get_db), current_u
     # return {"message": "Post created", "post": post}
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_post(
-    id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(oauth2.get_current_user)
-):
+def delete_post(id: Annotated[int, Path(gt=0)],db: DB,current_user= Depends(get_current_user)):
     logger.info(f"User {current_user.id} deleting post id={id}")
     post = db.query(models.Post).filter(models.Post.id == id).first()
 
@@ -145,12 +142,7 @@ def delete_post(
     
 
 @router.put("/{id}", response_model=schemas.PostResponse)
-def update_post(
-    id: int,
-    post_data: schemas.PostCreate,
-    db: Session = Depends(get_db),
-    current_user = Depends(oauth2.get_current_user)
-):
+def update_post(id: Annotated[int, Path(gt=0)],post_data: schemas.PostCreate,db: DB,current_user = Depends(get_current_user)):
     logger.info(f"User {current_user.id} updating post id={id}")
     post_query = db.query(models.Post).filter(models.Post.id == id)
     db_post = post_query.first()

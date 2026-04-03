@@ -310,3 +310,14 @@ fastapi.exceptions.HTTPException: 404: Post with id:4 does not exist
 2026-04-02 23:48:41.532 | INFO     | app.router.vote:create_vote:18 - User Voting attempt | user:3
 2026-04-02 23:48:41.571 | SUCCESS  | app.router.vote:create_vote:53 - Vote added | user:3
 2026-04-02 23:48:41.573 | INFO     | app.main:log_requests:22 - Response → status=201
+2026-04-03 17:53:25.074 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/
+2026-04-03 17:53:25.086 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-03 17:53:25.191 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/favicon.ico
+2026-04-03 17:53:25.193 | INFO     | app.main:log_requests:22 - Response → status=404
+2026-04-03 17:53:29.443 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/docs
+2026-04-03 17:53:29.445 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-03 17:53:29.673 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/openapi.json
+2026-04-03 17:53:29.766 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-03 17:54:10.392 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/posts/
+2026-04-03 17:54:10.398 | ERROR    | app.database:get_db:49 - Database session error | error=401: Not authenticated
+2026-04-03 17:54:10.517 | INFO     | app.main:log_requests:22 - Response → status=401

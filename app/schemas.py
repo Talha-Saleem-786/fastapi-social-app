@@ -1,6 +1,6 @@
 from datetime import datetime
-from typing import Optional
-from pydantic import BaseModel, EmailStr
+from typing import Optional, Annotated
+from pydantic import BaseModel, EmailStr, Field
 
 
 # -------------------------
@@ -9,21 +9,34 @@ from pydantic import BaseModel, EmailStr
 
 class UserCreated(BaseModel):
     email: EmailStr
-    password: str
-
+    password: Annotated[str, Field(
+        min_length=8,
+        max_length=25,
+        description="Password must be at least 8 characters"
+    )]
 
 class UserOut(BaseModel):
-    id: int
+    id: Annotated[int, Field(gt=0)]
     email: EmailStr
     created_at: datetime
 
     class Config:
         from_attributes = True
 
-
 class UserLogin(BaseModel):
     email: EmailStr
-    password: str
+    password: Annotated[str, Field(
+        min_length=8,
+        max_length=25,
+    )]
+
+class User_Response(BaseModel):
+    id: Annotated[int, Field(gt=0)]
+    email: EmailStr
+    created_At: datetime
+
+    class Config:
+        from_attributes = True
 
 
 # -------------------------
@@ -31,19 +44,24 @@ class UserLogin(BaseModel):
 # -------------------------
 
 class PostBase(BaseModel):
-    title: str
-    content: str
+    title: Annotated[str, Field(
+        min_length=3,
+        max_length=100,
+        description="Post title",
+    )]
+    content: Annotated[str, Field(
+        min_length=10,         
+        description="Post content",
+    )]
     published: bool = True
-
 
 class PostCreate(PostBase):
     pass
 
-
 class PostResponse(PostBase):
-    id: int
+    id: Annotated[int, Field(gt=0)]
     created_at: datetime
-    user_id: int
+    user_id: Annotated[int, Field(gt=0)]
     owner: UserOut
 
     class Config:
@@ -56,7 +74,10 @@ class PostResponse(PostBase):
 
 class PostOut(BaseModel):
     Post: PostResponse
-    votes: int
+    votes: Annotated[int, Field(
+        ge=0,                   
+        description="Vote count"
+    )]
 
     class Config:
         from_attributes = True
@@ -67,12 +88,14 @@ class PostOut(BaseModel):
 # -------------------------
 
 class Token(BaseModel):
-    access_token: str
+    access_token: Annotated[str, Field(
+        min_length=1,
+        description="JWT access token"
+    )]
     token_type: str
 
-
 class TokenData(BaseModel):
-    id: Optional[str] = None
+    id: Optional[Annotated[str, Field(min_length=1)]] = None
 
 
 # -------------------------
@@ -80,5 +103,12 @@ class TokenData(BaseModel):
 # -------------------------
 
 class Vote(BaseModel):
-    post_id: int
-    dir: int
+    post_id: Annotated[int, Field(
+        gt=0,                   
+        description="Post ID to vote on"
+    )]
+    dir: Annotated[int, Field(
+        ge=0,
+        le=1,
+        description="1 = upvote, 0 = remove vote"
+    )]
