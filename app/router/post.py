@@ -78,7 +78,7 @@ def individual_post(id: Annotated[int, Path(gt=0)], db: DB, current_user:Annotat
    
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.PostResponse)
-def create_post(post: schemas.PostCreate,db: DB, current_user= Depends(get_current_user)):
+def create_post(post: schemas.PostCreate,db: DB, current_user = Annotated[models.User, Depends(get_current_user)]):
     logger.info(f"User {current_user.id} created a post")
     try:
       new_post= models.Post(**post.model_dump(),user_id=current_user.id)
@@ -106,7 +106,7 @@ def create_post(post: schemas.PostCreate,db: DB, current_user= Depends(get_curre
     # return {"message": "Post created", "post": post}
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_post(id: Annotated[int, Path(gt=0)],db: DB,current_user= Depends(get_current_user)):
+def delete_post(id: Annotated[int, Path(gt=0)],db: DB,current_user = Annotated[models.User, Depends(get_current_user)]):
     logger.info(f"User {current_user.id} deleting post id={id}")
     post = db.query(models.Post).filter(models.Post.id == id).first()
 
@@ -142,7 +142,7 @@ def delete_post(id: Annotated[int, Path(gt=0)],db: DB,current_user= Depends(get_
     
 
 @router.put("/{id}", response_model=schemas.PostResponse)
-def update_post(id: Annotated[int, Path(gt=0)],post_data: schemas.PostCreate,db: DB,current_user = Depends(get_current_user)):
+def update_post(id: Annotated[int, Path(gt=0)],post_data: schemas.PostCreate,db: DB,current_user = Annotated[models.User, Depends(get_current_user)]):
     logger.info(f"User {current_user.id} updating post id={id}")
     post_query = db.query(models.Post).filter(models.Post.id == id)
     db_post = post_query.first()

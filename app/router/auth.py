@@ -5,13 +5,13 @@ from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from loguru import logger
 import sentry_sdk
 from ..dependencies import DB
-
+from typing import Annotated
 router = APIRouter(
     tags=["Authentication"]
 )
 
 @router.post("/login", response_model=schemas.Token)
-def login( db: DB,user_credentials: OAuth2PasswordRequestForm=Depends()):
+def login( db: DB, user_credentials: Annotated[OAuth2PasswordRequestForm, Depends()]):
     logger.info(f"Login attempt | user:{user_credentials.username}")
 
     try:
