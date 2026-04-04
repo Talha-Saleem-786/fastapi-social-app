@@ -2,10 +2,12 @@ from jose import jwt, JWTError
 from datetime import datetime, timedelta
 from fastapi import  status, HTTPException,Depends
 from fastapi.security import OAuth2PasswordBearer
+import sentry_sdk
 from app import schemas,models
 from app.dependencies import DB
 from .config import settings
 from loguru import logger
+from sqlalchemy import select
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")  
 
@@ -37,17 +39,22 @@ def verify_access_token(token: str, credentials_exception):
         raise credentials_exception
     return token_data
 
-def get_current_user( db:DB,token: str = Depends(oauth2_scheme)):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
+async def get_current_user( db:DB,token: str = Depends(oauth2_scheme)):
+    credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Could not validate credentials",headers={"WWW-Authenticate": "Bearer"},)
     token =verify_access_token(token , credentials_exception)
-    user= db.query(models.User).filter(models.User.id ==token.id).first()
-    if not user:
-        logger.warning(f"User not found with id: {token.id}")
-        raise credentials_exception
+    try:
+      result=await db.execute(select(models.User).filter(models.User.id ==token.id))
+      user= result.scalar_one_or_none()
+      if not user:
+          logger.warning(f"User not found with id: {token.id}")
+          raise credentials_exception
+      
+      logger.info(f"User retrieved successfully: {user.id}")
+      return schemas.User_Response.model_validate(user)
+    except HTTPException:
+        raise
     
-    logger.info(f"User retrieved successfully: {user.id}")
-    return schemas.User_Response.model_validate(user)
+    except Exception as e:
+        logger.error(f"Get current user failed | error={e}")
+        sentry_sdk.capture_exception(e)
+        raise credentials_exception

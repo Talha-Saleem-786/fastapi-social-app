@@ -33,7 +33,7 @@ class UserLogin(BaseModel):
 class User_Response(BaseModel):
     id: Annotated[int, Field(gt=0)]
     email: EmailStr
-    created_At: datetime
+    created_at: datetime
 
     class Config:
         from_attributes = True
@@ -49,10 +49,7 @@ class PostBase(BaseModel):
         max_length=100,
         description="Post title",
     )]
-    content: Annotated[str, Field(
-        min_length=10,         
-        description="Post content",
-    )]
+    content: str
     published: bool = True
 
 class PostCreate(PostBase):

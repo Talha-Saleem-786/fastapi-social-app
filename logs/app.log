@@ -321,3 +321,835 @@ fastapi.exceptions.HTTPException: 404: Post with id:4 does not exist
 2026-04-03 17:54:10.392 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/posts/
 2026-04-03 17:54:10.398 | ERROR    | app.database:get_db:49 - Database session error | error=401: Not authenticated
 2026-04-03 17:54:10.517 | INFO     | app.main:log_requests:22 - Response → status=401
+2026-04-04 22:04:11.113 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/docs
+2026-04-04 22:04:11.116 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-04 22:04:11.456 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/openapi.json
+2026-04-04 22:04:11.587 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-04 22:04:20.197 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/login
+2026-04-04 22:04:20.209 | INFO     | app.router.auth:login:16 - Login attempt | user:zoha@gmail.com
+2026-04-04 22:04:20.685 | SUCCESS  | app.oauth2:create_token:23 - Token created Succesfully for user_id: 3
+2026-04-04 22:04:20.686 | SUCCESS  | app.router.auth:login:28 - Login successful | email=zoha@gmail.com user_id=3
+2026-04-04 22:04:20.687 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-04 22:04:41.073 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/?limit=10&skip=0
+2026-04-04 22:04:41.078 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:04:41.081 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 3
+2026-04-04 22:04:41.110 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 3
+2026-04-04 22:04:41.156 | ERROR    | app.oauth2:get_current_user:58 - Get current user failed | error=1 validation error for User_Response
+created_At
+  Field required [type=missing, input_value=<app.models.User object at 0x0000016F3ACDA210>, input_type=User]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+2026-04-04 22:04:41.161 | ERROR    | app.database:get_db:53 - Database session error | error=401: Could not validate credentials
+2026-04-04 22:04:41.241 | INFO     | app.main:log_requests:22 - Response → status=401
+2026-04-04 22:05:38.334 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/login
+2026-04-04 22:05:38.340 | INFO     | app.router.auth:login:16 - Login attempt | user:Talha@example.com
+2026-04-04 22:05:38.362 | WARNING  | app.router.auth:login:22 - Login failed | email not found=Talha@example.com
+2026-04-04 22:05:38.363 | ERROR    | app.database:get_db:53 - Database session error | error=403: Invalid credentials
+2026-04-04 22:05:38.383 | INFO     | app.main:log_requests:22 - Response → status=403
+2026-04-04 22:05:47.248 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/login
+2026-04-04 22:05:47.252 | INFO     | app.router.auth:login:16 - Login attempt | user:Talha@example.com
+2026-04-04 22:05:47.258 | WARNING  | app.router.auth:login:22 - Login failed | email not found=Talha@example.com
+2026-04-04 22:05:47.259 | ERROR    | app.database:get_db:53 - Database session error | error=403: Invalid credentials
+2026-04-04 22:05:47.281 | INFO     | app.main:log_requests:22 - Response → status=403
+2026-04-04 22:06:14.120 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/
+2026-04-04 22:06:14.125 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-04 22:06:55.397 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/users/
+2026-04-04 22:06:55.410 | ERROR    | app.database:get_db:53 - Database session error | error=1 validation error:
+  {'type': 'string_too_short', 'loc': ('body', 'password'), 'msg': 'String should have at least 8 characters', 'input': 'amir123', 'ctx': {'min_length': 8}}
+
+  File "D:\FastApi\app\router\user.py", line 14, in create_user
+    POST /users/
+2026-04-04 22:06:55.428 | INFO     | app.main:log_requests:22 - Response → status=422
+2026-04-04 22:07:10.216 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/users/
+2026-04-04 22:07:10.220 | INFO     | app.router.user:create_user:16 - User Registeration Attempt | email:amir@gmail.com
+2026-04-04 22:07:10.507 | SUCCESS  | app.router.user:create_user:27 - User successfully created | email:amir@gmail.com with id:4
+2026-04-04 22:07:10.509 | INFO     | app.main:log_requests:22 - Response → status=201
+2026-04-04 22:07:32.444 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/login
+2026-04-04 22:07:32.449 | INFO     | app.router.auth:login:16 - Login attempt | user:amir@gmail.com
+2026-04-04 22:07:32.655 | SUCCESS  | app.oauth2:create_token:23 - Token created Succesfully for user_id: 4
+2026-04-04 22:07:32.656 | SUCCESS  | app.router.auth:login:28 - Login successful | email=amir@gmail.com user_id=4
+2026-04-04 22:07:32.658 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-04 22:08:01.315 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/?limit=10&skip=0
+2026-04-04 22:08:01.318 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:08:01.319 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:08:01.328 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:08:01.331 | ERROR    | app.oauth2:get_current_user:58 - Get current user failed | error=1 validation error for User_Response
+created_At
+  Field required [type=missing, input_value=<app.models.User object at 0x0000016F3AD15940>, input_type=User]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+2026-04-04 22:08:01.335 | ERROR    | app.database:get_db:53 - Database session error | error=401: Could not validate credentials
+2026-04-04 22:08:01.355 | INFO     | app.main:log_requests:22 - Response → status=401
+2026-04-04 22:12:10.704 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/?limit=10&skip=0
+2026-04-04 22:12:10.711 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:12:10.734 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:12:10.814 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:12:10.836 | INFO     | app.router.post:get_posts:25 - User 4 fetching posts | limit=10 skip=0 search=
+2026-04-04 22:12:10.905 | SUCCESS  | app.router.post:get_posts:33 - Posts fetched successfully | count=4
+2026-04-04 22:12:10.917 | ERROR    | app.database:get_db:56 - Database session error | error=5 validation errors:
+  {'type': 'get_attribute_error', 'loc': ('response', 0, 'Post', 'owner'), 'msg': "Error extracting attribute: StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 1}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)", 'input': <app.models.Post object at 0x000001E083DA7380>, 'ctx': {'error': "StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 1}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)"}}
+  {'type': 'get_attribute_error', 'loc': ('response', 1, 'Post', 'owner'), 'msg': "Error extracting attribute: StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 1}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)", 'input': <app.models.Post object at 0x000001E083DEEAD0>, 'ctx': {'error': "StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 1}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)"}}
+  {'type': 'get_attribute_error', 'loc': ('response', 2, 'Post', 'owner'), 'msg': "Error extracting attribute: StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 1}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)", 'input': <app.models.Post object at 0x000001E083DEEC10>, 'ctx': {'error': "StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 1}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)"}}
+  {'type': 'string_too_short', 'loc': ('response', 3, 'Post', 'content'), 'msg': 'String should have at least 10 characters', 'input': 'string', 'ctx': {'min_length': 10}}
+  {'type': 'get_attribute_error', 'loc': ('response', 3, 'Post', 'owner'), 'msg': "Error extracting attribute: StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 3}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)", 'input': <app.models.Post object at 0x000001E083DF0E90>, 'ctx': {'error': "StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 3}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)"}}
+
+  File "D:\FastApi\app\router\post.py", line 23, in get_posts
+    GET /posts/
+2026-04-04 22:12:10.945 | ERROR    | app.main:log_requests:20 - Error during request processing
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+  File "C:\Python314\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 312
+               │     └ 3
+               └ <function _main at 0x000001E0FDA27D70>
+  File "C:\Python314\Lib\multiprocessing\spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 312
+           │    └ <function BaseProcess._bootstrap at 0x000001E0FD8F5FE0>
+           └ <SpawnProcess name='SpawnProcess-4' parent=5092 started>
+  File "C:\Python314\Lib\multiprocessing\process.py", line 320, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x000001E0FD8F5380>
+    └ <SpawnProcess name='SpawnProcess-4' parent=5092 started>
+  File "C:\Python314\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x000001E0FFDA1940>, 'target': <bound method Server.run of <uvicorn.server.Server...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-4' parent=5092 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-4' parent=5092 started>
+    │    └ <function subprocess_started at 0x000001E0FFCD8930>
+    └ <SpawnProcess name='SpawnProcess-4' parent=5092 started>
+  File "d:\FastApi\.venv\Lib\site-packages\uvicorn\_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=592, family=2, type=1, proto=6, laddr=('127.0.0.1', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x000001E0FFDA1A90>>
+  File "d:\FastApi\.venv\Lib\site-packages\uvicorn\server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           │           │    │             │                      │    │      └ <function Config.get_loop_factory at 0x000001E0FFC6CB40>
+           │           │    │             │                      │    └ <uvicorn.config.Config object at 0x000001E0FFDA1940>
+           │           │    │             │                      └ <uvicorn.server.Server object at 0x000001E0FFDA1A90>
+           │           │    │             └ [<socket.socket fd=592, family=2, type=1, proto=6, laddr=('127.0.0.1', 8000)>]
+           │           │    └ <function Server.serve at 0x000001E0FFCBBED0>
+           │           └ <uvicorn.server.Server object at 0x000001E0FFDA1A90>
+           └ <function run at 0x000001E0FF8DAC40>
+  File "C:\Python314\Lib\asyncio\runners.py", line 204, in run
+    return runner.run(main)
+           │      │   └ <coroutine object Server.serve at 0x000001E0FFE3C9A0>
+           │      └ <function Runner.run at 0x000001E0FF8DB060>
+           └ <asyncio.runners.Runner object at 0x000001E0FFDA2900>
+  File "C:\Python314\Lib\asyncio\runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='Task-1' coro=<Server.serve() running at d:\FastApi\.venv\Lib\site-packages\uvicorn\server.py:71> wait_for...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x000001E0FF8D3480>
+           │    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x000001E0FFDA2900>
+  File "C:\Python314\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x000001E0FF8D33D0>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+  File "C:\Python314\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000001E0FF8D9590>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+  File "C:\Python314\Lib\asyncio\base_events.py", line 2046, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000001E0FE069BC0>
+    └ <Handle Task.task_wakeup()>
+  File "C:\Python314\Lib\asyncio\events.py", line 94, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup()>
+  File "d:\FastApi\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x000001E083CDCD70>
+  File "d:\FastApi\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001E083...
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001E...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x000001E08088DFD0>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x000001E083CDCD70>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\applications.py", line 1138, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001E083...
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001E...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001E083...
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001E...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000001E083CDDA90>
+          └ <fastapi.applications.FastAPI object at 0x000001E08088DFD0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000001E083D124B0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001E...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.cors.CORSMiddleware object at 0x000001E083CDD940>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000001E083CDDA90>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\cors.py", line 87, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000001E083D124B0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001E...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001E083CDD7F0>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x000001E083CDD940>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+                     │    │             │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x000001E083D12610>
+                     │    │             └ <starlette.middleware.base._CachedRequest object at 0x000001E083CDE3C0>
+                     │    └ <function log_requests at 0x000001E083CFF740>
+                     └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001E083CDD7F0>
+
+> File "D:\FastApi\app\main.py", line 18, in log_requests
+    response = await call_next(request)
+                     │         └ <starlette.middleware.base._CachedRequest object at 0x000001E083CDE3C0>
+                     └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x000001E083D12610>
+
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+          │            │       │            │       └ <attribute '__context__' of 'BaseException' objects>
+          │            │       │            └ ResponseValidationError()
+          │            │       └ <attribute '__cause__' of 'BaseException' objects>
+          │            └ ResponseValidationError()
+          └ ResponseValidationError()
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001E083D9EDA0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001E083D9EF00>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001E083CDD6A0>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001E083CDD7F0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001E083D9EDA0>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001E083D9EF00>
+          │                            │    │    │     └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    │    └ <starlette.requests.Request object at 0x000001E083CDF230>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001E083CDD550>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001E083CDD6A0>
+          └ <function wrap_app_handling_exceptions at 0x000001E081038A90>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001E083D9E820>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001E083D9EF00>
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001E083CDD550>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001E083D9E820>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001E083D9EF00>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x000001E083CA1FD0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001E083CDD550>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001E083D9E820>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001E083D9EF00>
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x000001E083CA1FD0>>
+          └ <fastapi.routing.APIRouter object at 0x000001E083CA1FD0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001E083D9E820>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001E083D9EF00>
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x000001E08103B5E0>
+          └ APIRoute(path='/posts/', name='get_posts', methods=['GET'])
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001E083D9E820>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001E083D9EF00>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x000001E083CFFA00>
+          └ APIRoute(path='/posts/', name='get_posts', methods=['GET'])
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 121, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001E083D9E820>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001E083D9EF00>
+          │                            │    │        └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    └ <starlette.requests.Request object at 0x000001E083CCE350>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x000001E083D9E610>
+          └ <function wrap_app_handling_exceptions at 0x000001E081038A90>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001E083D9E1F0>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001E083D9EF00>
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <function request_response.<locals>.app.<locals>.app at 0x000001E083D9E610>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x000001E083CCE350>
+                     └ <function get_request_handler.<locals>.app at 0x000001E083CFFB60>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 448, in app
+    content = await serialize_response(
+                    └ <function serialize_response at 0x000001E0810647D0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 286, in serialize_response
+    raise ResponseValidationError(
+          └ <class 'fastapi.exceptions.ResponseValidationError'>
+
+fastapi.exceptions.ResponseValidationError: 5 validation errors:
+  {'type': 'get_attribute_error', 'loc': ('response', 0, 'Post', 'owner'), 'msg': "Error extracting attribute: StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 1}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)", 'input': <app.models.Post object at 0x000001E083DA7380>, 'ctx': {'error': "StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 1}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)"}}
+  {'type': 'get_attribute_error', 'loc': ('response', 1, 'Post', 'owner'), 'msg': "Error extracting attribute: StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 1}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)", 'input': <app.models.Post object at 0x000001E083DEEAD0>, 'ctx': {'error': "StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 1}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)"}}
+  {'type': 'get_attribute_error', 'loc': ('response', 2, 'Post', 'owner'), 'msg': "Error extracting attribute: StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 1}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)", 'input': <app.models.Post object at 0x000001E083DEEC10>, 'ctx': {'error': "StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 1}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)"}}
+  {'type': 'string_too_short', 'loc': ('response', 3, 'Post', 'content'), 'msg': 'String should have at least 10 characters', 'input': 'string', 'ctx': {'min_length': 10}}
+  {'type': 'get_attribute_error', 'loc': ('response', 3, 'Post', 'owner'), 'msg': "Error extracting attribute: StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 3}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)", 'input': <app.models.Post object at 0x000001E083DF0E90>, 'ctx': {'error': "StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 3}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)"}}
+
+  File "D:\FastApi\app\router\post.py", line 23, in get_posts
+    GET /posts/
+2026-04-04 22:16:51.896 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/?limit=10&skip=0
+2026-04-04 22:16:51.904 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:16:51.932 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:16:52.004 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:16:52.026 | INFO     | app.router.post:get_posts:26 - User 4 fetching posts | limit=10 skip=0 search=
+2026-04-04 22:16:52.070 | SUCCESS  | app.router.post:get_posts:35 - Posts fetched successfully | count=4
+2026-04-04 22:16:52.076 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-04 22:18:24.003 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/posts/
+2026-04-04 22:18:24.023 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:18:24.025 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:18:24.038 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:18:24.040 | INFO     | app.router.post:create_post:91 - User 4 created a post
+2026-04-04 22:18:24.071 | SUCCESS  | app.router.post:create_post:97 - User 4 successfully created a post 7
+2026-04-04 22:18:24.075 | ERROR    | app.database:get_db:56 - Database session error | error=1 validation error:
+  {'type': 'get_attribute_error', 'loc': ('response', 'owner'), 'msg': "Error extracting attribute: StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 4}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)", 'input': <app.models.Post object at 0x000001D9600156E0>, 'ctx': {'error': "StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 4}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)"}}
+
+  File "D:\FastApi\app\router\post.py", line 89, in create_post
+    POST /posts/
+2026-04-04 22:18:24.096 | ERROR    | app.main:log_requests:20 - Error during request processing
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+  File "C:\Python314\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 308
+               │     └ 3
+               └ <function _main at 0x000001D959BF7D70>
+  File "C:\Python314\Lib\multiprocessing\spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 308
+           │    └ <function BaseProcess._bootstrap at 0x000001D959AC5FE0>
+           └ <SpawnProcess name='SpawnProcess-6' parent=5092 started>
+  File "C:\Python314\Lib\multiprocessing\process.py", line 320, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x000001D959AC5380>
+    └ <SpawnProcess name='SpawnProcess-6' parent=5092 started>
+  File "C:\Python314\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x000001D95BFA1940>, 'target': <bound method Server.run of <uvicorn.server.Server...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-6' parent=5092 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-6' parent=5092 started>
+    │    └ <function subprocess_started at 0x000001D95BED8930>
+    └ <SpawnProcess name='SpawnProcess-6' parent=5092 started>
+  File "d:\FastApi\.venv\Lib\site-packages\uvicorn\_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=592, family=2, type=1, proto=6, laddr=('127.0.0.1', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x000001D95BFA1A90>>
+  File "d:\FastApi\.venv\Lib\site-packages\uvicorn\server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           │           │    │             │                      │    │      └ <function Config.get_loop_factory at 0x000001D95BE5CB40>
+           │           │    │             │                      │    └ <uvicorn.config.Config object at 0x000001D95BFA1940>
+           │           │    │             │                      └ <uvicorn.server.Server object at 0x000001D95BFA1A90>
+           │           │    │             └ [<socket.socket fd=592, family=2, type=1, proto=6, laddr=('127.0.0.1', 8000)>]
+           │           │    └ <function Server.serve at 0x000001D95BEBBED0>
+           │           └ <uvicorn.server.Server object at 0x000001D95BFA1A90>
+           └ <function run at 0x000001D95A4CAC40>
+  File "C:\Python314\Lib\asyncio\runners.py", line 204, in run
+    return runner.run(main)
+           │      │   └ <coroutine object Server.serve at 0x000001D95C03C9A0>
+           │      └ <function Runner.run at 0x000001D95A4CB060>
+           └ <asyncio.runners.Runner object at 0x000001D95BFA2900>
+  File "C:\Python314\Lib\asyncio\runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='Task-1' coro=<Server.serve() running at d:\FastApi\.venv\Lib\site-packages\uvicorn\server.py:71> wait_for...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x000001D95A4C3480>
+           │    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x000001D95BFA2900>
+  File "C:\Python314\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x000001D95A4C33D0>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+  File "C:\Python314\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000001D95A4C9590>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+  File "C:\Python314\Lib\asyncio\base_events.py", line 2046, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000001D95A239BC0>
+    └ <Handle Task.task_wakeup()>
+  File "C:\Python314\Lib\asyncio\events.py", line 94, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup()>
+  File "d:\FastApi\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x000001D95FF08D70>
+  File "d:\FastApi\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001D95F...
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001D...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x000001D95CA8DFD0>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x000001D95FF08D70>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\applications.py", line 1138, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001D95F...
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001D...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001D95F...
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001D...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000001D95FF09A90>
+          └ <fastapi.applications.FastAPI object at 0x000001D95CA8DFD0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000001D95FFCE140>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001D...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.cors.CORSMiddleware object at 0x000001D95FF09940>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000001D95FF09A90>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\cors.py", line 95, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+          │    │               │      │        │                     └ Headers({'host': '127.0.0.1:8000', 'connection': 'keep-alive', 'content-length': '94', 'sec-ch-ua-platform': '"Windows"', 'au...
+          │    │               │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000001D95FFCE140>
+          │    │               │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001D...
+          │    │               └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function CORSMiddleware.simple_response at 0x000001D95FEC2770>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x000001D95FF09940>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\cors.py", line 153, in simple_response
+    await self.app(scope, receive, send)
+          │    │   │      │        └ functools.partial(<bound method CORSMiddleware.send of <starlette.middleware.cors.CORSMiddleware object at 0x000001D95FF09940...
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001D...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001D95FF097F0>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x000001D95FF09940>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+                     │    │             │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x000001D95FFCEB90>
+                     │    │             └ <starlette.middleware.base._CachedRequest object at 0x000001D95FEFF250>
+                     │    └ <function log_requests at 0x000001D95FF2F690>
+                     └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001D95FF097F0>
+
+> File "D:\FastApi\app\main.py", line 18, in log_requests
+    response = await call_next(request)
+                     │         └ <starlette.middleware.base._CachedRequest object at 0x000001D95FEFF250>
+                     └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x000001D95FFCEB90>
+
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+          │            │       │            │       └ <attribute '__context__' of 'BaseException' objects>
+          │            │       │            └ ResponseValidationError()
+          │            │       └ <attribute '__cause__' of 'BaseException' objects>
+          │            └ ResponseValidationError()
+          └ ResponseValidationError()
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001D95FFCEFB0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D95FFCECF0>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001D95FF096A0>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001D95FF097F0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001D95FFCEFB0>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D95FFCECF0>
+          │                            │    │    │     └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    │    └ <starlette.requests.Request object at 0x000001D960018050>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001D95FF09550>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001D95FF096A0>
+          └ <function wrap_app_handling_exceptions at 0x000001D95D238A90>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D95FFCE770>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D95FFCECF0>
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001D95FF09550>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D95FFCE770>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D95FFCECF0>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x000001D95FED1EB0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001D95FF09550>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D95FFCE770>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D95FFCECF0>
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x000001D95FED1EB0>>
+          └ <fastapi.routing.APIRouter object at 0x000001D95FED1EB0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D95FFCE770>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D95FFCECF0>
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x000001D95D23B5E0>
+          └ APIRoute(path='/posts/', name='create_post', methods=['POST'])
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D95FFCE770>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D95FFCECF0>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x000001D95FF40040>
+          └ APIRoute(path='/posts/', name='create_post', methods=['POST'])
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 121, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D95FFCE770>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D95FFCECF0>
+          │                            │    │        └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    └ <starlette.requests.Request object at 0x000001D9600150F0>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x000001D95FFCE4B0>
+          └ <function wrap_app_handling_exceptions at 0x000001D95D238A90>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D95FFCDA60>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D95FFCECF0>
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <function request_response.<locals>.app.<locals>.app at 0x000001D95FFCE4B0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x000001D9600150F0>
+                     └ <function get_request_handler.<locals>.app at 0x000001D95FF2FE20>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 448, in app
+    content = await serialize_response(
+                    └ <function serialize_response at 0x000001D95D2647D0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 286, in serialize_response
+    raise ResponseValidationError(
+          └ <class 'fastapi.exceptions.ResponseValidationError'>
+
+fastapi.exceptions.ResponseValidationError: 1 validation error:
+  {'type': 'get_attribute_error', 'loc': ('response', 'owner'), 'msg': "Error extracting attribute: StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 4}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)", 'input': <app.models.Post object at 0x000001D9600156E0>, 'ctx': {'error': "StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 4}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)"}}
+
+  File "D:\FastApi\app\router\post.py", line 89, in create_post
+    POST /posts/
+2026-04-04 22:22:24.549 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/posts/
+2026-04-04 22:22:24.558 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:22:24.585 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:22:24.661 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:22:24.679 | INFO     | app.router.post:create_post:92 - User 4 created a post
+2026-04-04 22:22:24.743 | SUCCESS  | app.router.post:create_post:105 - User 4 successfully created a post 8
+2026-04-04 22:22:24.746 | INFO     | app.main:log_requests:22 - Response → status=201
+2026-04-04 22:22:46.201 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/4
+2026-04-04 22:22:46.221 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:22:46.224 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:22:46.235 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:22:46.238 | INFO     | app.router.post:individual_post:55 - User 4 fetching post id:4
+2026-04-04 22:22:46.256 | WARNING  | app.router.post:individual_post:65 - Post id:4 not found
+2026-04-04 22:22:46.261 | INFO     | app.main:log_requests:22 - Response → status=404
+2026-04-04 22:23:17.120 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/?limit=10&skip=0
+2026-04-04 22:23:17.123 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:23:17.124 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:23:17.136 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:23:17.138 | INFO     | app.router.post:get_posts:26 - User 4 fetching posts | limit=10 skip=0 search=
+2026-04-04 22:23:17.176 | SUCCESS  | app.router.post:get_posts:35 - Posts fetched successfully | count=6
+2026-04-04 22:23:17.185 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-04 22:23:40.608 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/1
+2026-04-04 22:23:40.610 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:23:40.611 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:23:40.618 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:23:40.620 | INFO     | app.router.post:individual_post:55 - User 4 fetching post id:1
+2026-04-04 22:23:40.636 | SUCCESS  | app.router.post:individual_post:70 - Post id:1 fetched Successfully
+2026-04-04 22:23:40.640 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-04 22:23:45.142 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/7
+2026-04-04 22:23:45.144 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:23:45.145 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:23:45.151 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:23:45.153 | INFO     | app.router.post:individual_post:55 - User 4 fetching post id:7
+2026-04-04 22:23:45.170 | SUCCESS  | app.router.post:individual_post:70 - Post id:7 fetched Successfully
+2026-04-04 22:23:45.172 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-04 22:24:24.504 | INFO     | app.main:log_requests:16 - Request --> DELETE http://127.0.0.1:8000/posts/7
+2026-04-04 22:24:24.519 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:24:24.522 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:24:24.534 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:24:24.536 | INFO     | app.router.post:delete_post:127 - User 4 deleting post id=7
+2026-04-04 22:24:24.580 | SUCCESS  | app.router.post:delete_post:141 - Post id=7 deleted by user=4
+2026-04-04 22:24:24.582 | INFO     | app.main:log_requests:22 - Response → status=204
+2026-04-04 22:24:37.786 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/?limit=10&skip=0
+2026-04-04 22:24:37.788 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:24:37.789 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:24:37.796 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:24:37.798 | INFO     | app.router.post:get_posts:26 - User 4 fetching posts | limit=10 skip=0 search=
+2026-04-04 22:24:37.818 | SUCCESS  | app.router.post:get_posts:35 - Posts fetched successfully | count=5
+2026-04-04 22:24:37.822 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-04 22:25:31.488 | INFO     | app.main:log_requests:16 - Request --> DELETE http://127.0.0.1:8000/posts/1
+2026-04-04 22:25:31.490 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:25:31.490 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:25:31.499 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:25:31.502 | INFO     | app.router.post:delete_post:127 - User 4 deleting post id=1
+2026-04-04 22:25:31.510 | WARNING  | app.router.post:delete_post:137 - Unauthorized delete | user=4 post owner=1
+2026-04-04 22:25:31.514 | INFO     | app.main:log_requests:22 - Response → status=403
+2026-04-04 22:25:39.039 | INFO     | app.main:log_requests:16 - Request --> DELETE http://127.0.0.1:8000/posts/8
+2026-04-04 22:25:39.040 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:25:39.041 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:25:39.047 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:25:39.049 | INFO     | app.router.post:delete_post:127 - User 4 deleting post id=8
+2026-04-04 22:25:39.088 | SUCCESS  | app.router.post:delete_post:141 - Post id=8 deleted by user=4
+2026-04-04 22:25:39.089 | INFO     | app.main:log_requests:22 - Response → status=204
+2026-04-04 22:25:51.558 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/?limit=10&skip=0
+2026-04-04 22:25:51.560 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:25:51.561 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:25:51.583 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:25:51.586 | INFO     | app.router.post:get_posts:26 - User 4 fetching posts | limit=10 skip=0 search=
+2026-04-04 22:25:51.602 | SUCCESS  | app.router.post:get_posts:35 - Posts fetched successfully | count=4
+2026-04-04 22:25:51.607 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-04 22:26:17.823 | INFO     | app.main:log_requests:16 - Request --> POST http://127.0.0.1:8000/posts/
+2026-04-04 22:26:17.826 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:26:17.828 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:26:17.835 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:26:17.837 | INFO     | app.router.post:create_post:92 - User 4 created a post
+2026-04-04 22:26:17.898 | SUCCESS  | app.router.post:create_post:105 - User 4 successfully created a post 9
+2026-04-04 22:26:17.900 | INFO     | app.main:log_requests:22 - Response → status=201
+2026-04-04 22:26:25.270 | INFO     | app.main:log_requests:16 - Request --> GET http://127.0.0.1:8000/posts/?limit=10&skip=0
+2026-04-04 22:26:25.273 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:26:25.275 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:26:25.282 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:26:25.283 | INFO     | app.router.post:get_posts:26 - User 4 fetching posts | limit=10 skip=0 search=
+2026-04-04 22:26:25.301 | SUCCESS  | app.router.post:get_posts:35 - Posts fetched successfully | count=5
+2026-04-04 22:26:25.306 | INFO     | app.main:log_requests:22 - Response → status=200
+2026-04-04 22:27:36.459 | INFO     | app.main:log_requests:16 - Request --> PUT http://127.0.0.1:8000/posts/9
+2026-04-04 22:27:36.466 | INFO     | app.oauth2:verify_access_token:27 - Verifying access token...
+2026-04-04 22:27:36.468 | SUCCESS  | app.oauth2:verify_access_token:35 - Token verified successfully for user_id: 4
+2026-04-04 22:27:36.476 | INFO     | app.oauth2:get_current_user:52 - User retrieved successfully: 4
+2026-04-04 22:27:36.478 | INFO     | app.router.post:update_post:168 - User 4 updating post id=9
+2026-04-04 22:27:36.526 | SUCCESS  | app.router.post:update_post:188 - Post id=9 updated by user=4
+2026-04-04 22:27:36.532 | ERROR    | app.database:get_db:56 - Database session error | error=1 validation error:
+  {'type': 'get_attribute_error', 'loc': ('response', 'owner'), 'msg': "Error extracting attribute: StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 4}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)", 'input': <app.models.Post object at 0x000001AE617EC2D0>, 'ctx': {'error': "StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 4}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)"}}
+
+  File "D:\FastApi\app\router\post.py", line 161, in update_post
+    PUT /posts/{id}
+2026-04-04 22:27:36.557 | ERROR    | app.main:log_requests:20 - Error during request processing
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+  File "C:\Python314\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 328
+               │     └ 3
+               └ <function _main at 0x000001AE5AE87D70>
+  File "C:\Python314\Lib\multiprocessing\spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 328
+           │    └ <function BaseProcess._bootstrap at 0x000001AE5AD55FE0>
+           └ <SpawnProcess name='SpawnProcess-7' parent=5092 started>
+  File "C:\Python314\Lib\multiprocessing\process.py", line 320, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x000001AE5AD55380>
+    └ <SpawnProcess name='SpawnProcess-7' parent=5092 started>
+  File "C:\Python314\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x000001AE5D221940>, 'target': <bound method Server.run of <uvicorn.server.Server...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-7' parent=5092 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-7' parent=5092 started>
+    │    └ <function subprocess_started at 0x000001AE5D158930>
+    └ <SpawnProcess name='SpawnProcess-7' parent=5092 started>
+  File "d:\FastApi\.venv\Lib\site-packages\uvicorn\_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=584, family=2, type=1, proto=6, laddr=('127.0.0.1', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x000001AE5D221A90>>
+  File "d:\FastApi\.venv\Lib\site-packages\uvicorn\server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           │           │    │             │                      │    │      └ <function Config.get_loop_factory at 0x000001AE5D0DCB40>
+           │           │    │             │                      │    └ <uvicorn.config.Config object at 0x000001AE5D221940>
+           │           │    │             │                      └ <uvicorn.server.Server object at 0x000001AE5D221A90>
+           │           │    │             └ [<socket.socket fd=584, family=2, type=1, proto=6, laddr=('127.0.0.1', 8000)>]
+           │           │    └ <function Server.serve at 0x000001AE5D13BED0>
+           │           └ <uvicorn.server.Server object at 0x000001AE5D221A90>
+           └ <function run at 0x000001AE5B75AC40>
+  File "C:\Python314\Lib\asyncio\runners.py", line 204, in run
+    return runner.run(main)
+           │      │   └ <coroutine object Server.serve at 0x000001AE5D2BC9A0>
+           │      └ <function Runner.run at 0x000001AE5B75B060>
+           └ <asyncio.runners.Runner object at 0x000001AE5D222900>
+  File "C:\Python314\Lib\asyncio\runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='Task-1' coro=<Server.serve() running at d:\FastApi\.venv\Lib\site-packages\uvicorn\server.py:71> wait_for...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x000001AE5B753480>
+           │    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x000001AE5D222900>
+  File "C:\Python314\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x000001AE5B7533D0>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+  File "C:\Python314\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000001AE5B759590>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+  File "C:\Python314\Lib\asyncio\base_events.py", line 2046, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000001AE5B4C9BC0>
+    └ <Handle Task.task_wakeup()>
+  File "C:\Python314\Lib\asyncio\events.py", line 94, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup()>
+  File "d:\FastApi\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x000001AE611CCEC0>
+  File "d:\FastApi\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001AE61...
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001A...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x000001AE5DD0DFD0>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x000001AE611CCEC0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\applications.py", line 1138, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001AE61...
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001A...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001AE61...
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001A...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000001AE611CDBE0>
+          └ <fastapi.applications.FastAPI object at 0x000001AE5DD0DFD0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000001AE61683D70>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001A...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.cors.CORSMiddleware object at 0x000001AE611CDA90>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000001AE611CDBE0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\cors.py", line 95, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+          │    │               │      │        │                     └ Headers({'host': '127.0.0.1:8000', 'connection': 'keep-alive', 'content-length': '92', 'sec-ch-ua-platform': '"Windows"', 'au...
+          │    │               │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000001AE61683D70>
+          │    │               │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001A...
+          │    │               └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function CORSMiddleware.simple_response at 0x000001AE61182820>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x000001AE611CDA90>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\cors.py", line 153, in simple_response
+    await self.app(scope, receive, send)
+          │    │   │      │        └ functools.partial(<bound method CORSMiddleware.send of <starlette.middleware.cors.CORSMiddleware object at 0x000001AE611CDA90...
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x000001A...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001AE611CD940>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x000001AE611CDA90>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+                     │    │             │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x000001AE61681BC0>
+                     │    │             └ <starlette.middleware.base._CachedRequest object at 0x000001AE617BA5F0>
+                     │    └ <function log_requests at 0x000001AE611EF740>
+                     └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001AE611CD940>
+
+> File "D:\FastApi\app\main.py", line 18, in log_requests
+    response = await call_next(request)
+                     │         └ <starlette.middleware.base._CachedRequest object at 0x000001AE617BA5F0>
+                     └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x000001AE61681BC0>
+
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+          │            │       │            │       └ <attribute '__context__' of 'BaseException' objects>
+          │            │       │            └ ResponseValidationError()
+          │            │       └ <attribute '__cause__' of 'BaseException' objects>
+          │            └ ResponseValidationError()
+          └ ResponseValidationError()
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001AE61683C10>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001AE61683270>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001AE611CD7F0>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001AE611CD940>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001AE61683C10>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001AE61683270>
+          │                            │    │    │     └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    │    └ <starlette.requests.Request object at 0x000001AE61681860>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001AE611CD6A0>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001AE611CD7F0>
+          └ <function wrap_app_handling_exceptions at 0x000001AE5E4B8A90>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001AE6128AAE0>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001AE61683270>
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001AE611CD6A0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001AE6128AAE0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001AE61683270>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x000001AE61191EB0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001AE611CD6A0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001AE6128AAE0>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001AE61683270>
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x000001AE61191EB0>>
+          └ <fastapi.routing.APIRouter object at 0x000001AE61191EB0>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001AE6128AAE0>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001AE61683270>
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x000001AE5E4BB5E0>
+          └ APIRoute(path='/posts/{id}', name='update_post', methods=['PUT'])
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001AE6128AAE0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001AE61683270>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x000001AE61200670>
+          └ APIRoute(path='/posts/{id}', name='update_post', methods=['PUT'])
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 121, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001AE6128AAE0>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001AE61683270>
+          │                            │    │        └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    └ <starlette.requests.Request object at 0x000001AE612899C0>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x000001AE6128AC40>
+          └ <function wrap_app_handling_exceptions at 0x000001AE5E4B8A90>
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "d:\FastApi\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001AE617CC930>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001AE61683270>
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <function request_response.<locals>.app.<locals>.app at 0x000001AE6128AC40>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x000001AE612899C0>
+                     └ <function get_request_handler.<locals>.app at 0x000001AE612007D0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 448, in app
+    content = await serialize_response(
+                    └ <function serialize_response at 0x000001AE5E4E47D0>
+  File "d:\FastApi\.venv\Lib\site-packages\fastapi\routing.py", line 286, in serialize_response
+    raise ResponseValidationError(
+          └ <class 'fastapi.exceptions.ResponseValidationError'>
+
+fastapi.exceptions.ResponseValidationError: 1 validation error:
+  {'type': 'get_attribute_error', 'loc': ('response', 'owner'), 'msg': "Error extracting attribute: StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 4}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)", 'input': <app.models.Post object at 0x000001AE617EC2D0>, 'ctx': {'error': "StatementError: (sqlalchemy.exc.MissingGreenlet) greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place?\n[SQL: SELECT users.id AS users_id, users.email AS users_email, users.password AS users_password, users.created_at AS users_created_at \nFROM users \nWHERE users.id = %s]\n[parameters: [{'pk_1': 4}]]\n(Background on this error at: https://sqlalche.me/e/20/xd2s)"}}
+
+  File "D:\FastApi\app\router\post.py", line 161, in update_post
+    PUT /posts/{id}

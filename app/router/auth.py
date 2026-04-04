@@ -6,16 +6,18 @@ from loguru import logger
 import sentry_sdk
 from ..dependencies import DB
 from typing import Annotated
+from sqlalchemy import  select
 router = APIRouter(
     tags=["Authentication"]
 )
 
 @router.post("/login", response_model=schemas.Token)
-def login( db: DB, user_credentials: Annotated[OAuth2PasswordRequestForm, Depends()]):
+async def login( db: DB, user_credentials: Annotated[OAuth2PasswordRequestForm, Depends()]):
     logger.info(f"Login attempt | user:{user_credentials.username}")
 
     try:
-      user = db.query(models.User).filter( models.User.email == user_credentials.username).first()
+      result =await db.execute(select(models.User).filter( models.User.email == user_credentials.username))
+      user = result.scalar_one_or_none()
       if not user:
           logger.warning(f"Login failed | email not found={user_credentials.username}")
           raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,detail="Invalid credentials")
